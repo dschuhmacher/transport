@@ -170,7 +170,11 @@ unbalanced.pgrid <- function(a, b, p = 1, C = NULL, method = c("networkflow", "r
     # since the grid is always regular this wrong order does not matter, even with the selection we do in the next command 
   
   if (p == 1) {
-    costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(1/2)
+    if (threads == 1) {
+      costm <- gen_cost0(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(1/2)
+    } else {
+      costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(1/2)
+    }
     ltunnel <- costm >= 2*C
     costm[ltunnel] <- 2*C
     acan <- bcan <- FALSE # are there trashcan states at the end of a and b (and the rows and cols of costm)
@@ -194,7 +198,11 @@ unbalanced.pgrid <- function(a, b, p = 1, C = NULL, method = c("networkflow", "r
       }
     }
   } else {
-    costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(p/2)  
+    if (threads == 1) {
+      costm <- gen_cost0(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(p/2)
+    } else {
+      costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(p/2)
+    }
       # could take pmin with 2*C^p, but not needed, let's see what is easier (since most probably the pmin is cheap)
     costm <- rbind(costm, C^p)  # we do *not* divide by two! (MSM not HKM)
     costm <- cbind(costm, C^p)

@@ -31,7 +31,11 @@ unbalanced.wpp <- function(a, b, p = 1, C = NULL, method = c("networkflow", "rev
     
   if (n == 0) return(atotmass)  # btotmass = 0
     
-  costm <- gen_cost(a$coordinates, b$coordinates, threads=threads)^(p/2) 
+  if (threads == 1) {
+    costm <- gen_cost0(a$coordinates, b$coordinates)^(p/2)
+  } else {
+    costm <- gen_cost(a$coordinates, b$coordinates, threads=threads)^(p/2) 
+  }
   # could take pmin with 2*C^p, but not needed
   costm <- rbind(costm, C^p)  # we do *not* divide by two! (MSM not HKM)
   costm <- cbind(costm, C^p)

@@ -35,6 +35,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// gen_cost0
+NumericMatrix gen_cost0(NumericMatrix xx, NumericMatrix yy);
+RcppExport SEXP _transport_gen_cost0(SEXP xxSEXP, SEXP yySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type xx(xxSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type yy(yySEXP);
+    rcpp_result_gen = Rcpp::wrap(gen_cost0(xx, yy));
+    return rcpp_result_gen;
+END_RCPP
+}
 // networkflow
 List networkflow(NumericMatrix a, NumericMatrix b, NumericMatrix C, int threads);
 RcppExport SEXP _transport_networkflow(SEXP aSEXP, SEXP bSEXP, SEXP CSEXP, SEXP threadsSEXP) {

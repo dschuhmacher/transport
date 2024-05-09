@@ -349,7 +349,11 @@ transport.pgrid <- function(a, b, p = NULL, method = c("auto", "networkflow", "r
       warning("multithreading request ignored. Package was not installed with openMP support")
     }
     x<-as.matrix(expand.grid(a$generator))
-    C<-gen_cost(x,x,threads)^(p/2)
+    if (threads == 1) {
+      C <- gen_cost0(x, x)^(p/2)
+    } else {
+      C <- gen_cost(x, x, threads)^(p/2) 
+    }
     #disabled for now
     # if ((dim(C)[1]%%2==1) && (length(dim(C)[2])%%2==1)){
     #   result<-networkflow_odd(matrix(a$mass),matrix(b$mass),C,threads)
@@ -710,8 +714,8 @@ transport.pp <- function(a, b, p = 1, method = c("auction", "auctionbf", "networ
 
   x <- a$coordinates
   y <- b$coordinates
-  
-  dd <- gen_cost(x,y,1)^(p/2)
+
+  dd <- gen_cost0(x, y)^(p/2)
   maxdd <- max(dd)
   # catches a very special case:
   if (maxdd == 0) {
@@ -894,7 +898,12 @@ transport.wpp <- function(a, b, p = 1, method = c("networkflow", "revsimplex", "
     if (threads > 1 && !as.logical(openmp_present())) {
       warning("multithreading request ignored. Package was not installed with openMP support")
     }
-    C<-gen_cost(x,y,threads)^(p/2)
+    
+    if (threads == 1) {
+      C <- gen_cost0(x, y)^(p/2)
+    } else {
+      C <- gen_cost(x, y, threads)^(p/2)
+    }
     #disabled for now
     # if ((dim(C)[1]%%2==1) && (length(dim(C)[2])%%2==1)){
     #   result<-networkflow_odd(matrix(amass),matrix(bmass),C,threads)
@@ -940,7 +949,7 @@ transport.wpp <- function(a, b, p = 1, method = c("networkflow", "revsimplex", "
     stop("Non-zero measures, but no mass left after pointwise rounding.")   	
   }
   
-  dd <- gen_cost(x[wha,],y[whb,],1)^(p/2)
+  dd <- gen_cost0(x[wha,], y[whb,])^(p/2)
   maxdd <- max(dd)
   # catches a very special case:
   if (maxdd == 0) {

@@ -1,6 +1,6 @@
 Package: transport
-Version: 0.15-0.9002
-Date: 2024-04-03
+Version: 0.15-1
+Date: 2024-05-09
 Title: Computation of Optimal Transport Plans and Wasserstein Distances
 Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathematik.uni-goettingen.de", role = c("aut","cre")),
              person("Björn", "Bähre", role = "aut", comment = "aha and power diagrams"),
@@ -12,7 +12,7 @@ Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathe
              person("Jörn", "Schrieber", role = "aut", comment = "subsampling"),
              person("Timo", "Wilm", role = "ctb", comment = "wpp"))
 Maintainer: Dominic Schuhmacher <dominic.schuhmacher@mathematik.uni-goettingen.de>
-Depends: R (>= 3.0.0)
+Depends: R (>= 4.1)
 Imports: grDevices, graphics, methods, stats, Rcpp (>= 0.12.10), data.table
 Suggests: animation, ks, testthat, WSGeometry
 LinkingTo: RcppEigen, Rcpp

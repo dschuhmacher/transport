@@ -9,6 +9,10 @@ gen_cost <- function(AR, BR, threads) {
     .Call(`_transport_gen_cost`, AR, BR, threads)
 }
 
+gen_cost0 <- function(xx, yy) {
+    .Call(`_transport_gen_cost0`, xx, yy)
+}
+
 networkflow <- function(a, b, C, threads) {
     .Call(`_transport_networkflow`, a, b, C, threads)
 }

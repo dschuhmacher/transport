@@ -48,6 +48,7 @@ extern SEXP _transport_cplex_present(void);
 extern SEXP _transport_SolveHierarchicalTransport(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _transport_networkflow(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _transport_gen_cost(SEXP, SEXP, SEXP);
+extern SEXP _transport_gen_cost0(SEXP, SEXP);
 extern SEXP _transport_openmp_present(void);
 
 static const R_CMethodDef CEntries[] = {
@@ -77,6 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_transport_SolveHierarchicalTransport", (DL_FUNC) &_transport_SolveHierarchicalTransport, 13},
     {"_transport_networkflow", (DL_FUNC) &_transport_networkflow, 4},
     {"_transport_gen_cost", (DL_FUNC) &_transport_gen_cost, 3},
+    {"_transport_gen_cost0", (DL_FUNC) &_transport_gen_cost0, 2},
     {"_transport_openmp_present", (DL_FUNC) &_transport_openmp_present, 0},
     {NULL, NULL, 0}
 };
