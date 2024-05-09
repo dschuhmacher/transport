@@ -1,6 +1,6 @@
 Package: transport
-Version: 0.15-1
-Date: 2024-05-09
+Version: 0.15-2
+Date: 2024-05-10
 Title: Computation of Optimal Transport Plans and Wasserstein Distances
 Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathematik.uni-goettingen.de", role = c("aut","cre")),
              person("Björn", "Bähre", role = "aut", comment = "aha and power diagrams"),

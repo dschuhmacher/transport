@@ -350,7 +350,7 @@ transport.pgrid <- function(a, b, p = NULL, method = c("auto", "networkflow", "r
     }
     x<-as.matrix(expand.grid(a$generator))
     if (threads == 1) {
-      C <- gen_cost0(x, x)^(p/2)
+      C <- gen_cost0d(x, x)^(p/2)
     } else {
       C <- gen_cost(x, x, threads)^(p/2) 
     }
@@ -715,7 +715,11 @@ transport.pp <- function(a, b, p = 1, method = c("auction", "auctionbf", "networ
   x <- a$coordinates
   y <- b$coordinates
 
-  dd <- gen_cost0(x, y)^(p/2)
+  if (a$dimension == 2) {
+    dd <- gen_cost0(x, y)^(p/2)  # this saves about 25-40% compared to gen_cost0d
+  } else {
+    dd <- gen_cost0d(x, y)^(p/2)
+  }
   maxdd <- max(dd)
   # catches a very special case:
   if (maxdd == 0) {
@@ -900,7 +904,11 @@ transport.wpp <- function(a, b, p = 1, method = c("networkflow", "revsimplex", "
     }
     
     if (threads == 1) {
-      C <- gen_cost0(x, y)^(p/2)
+      if (a$dimension == 2) {
+        C <- gen_cost0(x, y)^(p/2)  # this saves about 25-40% compared to gen_cost0d
+      } else {
+        C <- gen_cost0d(x, y)^(p/2)
+      }
     } else {
       C <- gen_cost(x, y, threads)^(p/2)
     }
@@ -949,7 +957,11 @@ transport.wpp <- function(a, b, p = 1, method = c("networkflow", "revsimplex", "
     stop("Non-zero measures, but no mass left after pointwise rounding.")   	
   }
   
-  dd <- gen_cost0(x[wha,], y[whb,])^(p/2)
+  if (a$dimension == 2) {
+    dd <- gen_cost0(x[wha,], y[whb,])^(p/2)  # this saves about 25-40% compared to gen_cost0d
+  } else {
+    dd <- gen_cost0d(x[wha,], y[whb,])^(p/2)
+  }
   maxdd <- max(dd)
   # catches a very special case:
   if (maxdd == 0) {

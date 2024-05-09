@@ -22,9 +22,9 @@ NumericMatrix gen_cost(NumericMatrix AR, NumericMatrix BR, int threads) {
     // this can lead to (small) numerically negative values (and then NaNs when taking the root)
     
   // quick-and-(maybe dirty)-fix
-  //for(auto x : Cmat.reshaped()) {
-  //  x = max(x, 0.0);
-  //}
+  for(auto x : Cmat.reshaped()) {
+    x = max(x, 0.0);
+  }
 
   return  wrap(Cmat);
 }
@@ -38,7 +38,7 @@ NumericMatrix gen_cost0(NumericMatrix xx, NumericMatrix yy) {
   int m = xx.nrow();
   int n = yy.nrow();
   
-  NumericMatrix Cmat(m,n);
+  NumericMatrix Cmat(m,n);  // initializes with zeros
   for (int j=0; j<n; j++) {
   for (int i=0; i<m; i++) {
     double d1 = xx(i,0) - yy(j,0);
@@ -46,6 +46,30 @@ NumericMatrix gen_cost0(NumericMatrix xx, NumericMatrix yy) {
     Cmat(i,j) = d1 * d1 + d2 * d2;
   }
   }
+  
+  return Cmat;
+}
 
+
+//[[Rcpp::export]]
+NumericMatrix gen_cost0d(NumericMatrix xx, NumericMatrix yy) {
+  int m = xx.nrow();
+  int n = yy.nrow();
+  int d = xx.ncol();
+  if (d != yy.ncol()) {
+    stop("number of coordinates must agree");
+  }
+  
+  NumericVector temp(d);
+  NumericMatrix Cmat(m,n);  // initializes with zeros
+  for (int j=0; j<n; j++) {
+    for (int i=0; i<m; i++) {
+      for (int k=0; k<d; k++) {
+        temp[k] = xx(i,k) - yy(j,k);
+        Cmat(i,j) += temp[k] * temp[k];
+      }
+    }
+  }
+  
   return Cmat;
 }

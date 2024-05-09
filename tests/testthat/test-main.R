@@ -295,3 +295,33 @@ test_that("semidiscrete, p=2", {
                  # note that snapshot tests by default are set up to not run on cran (that's why we can keep
                  # the tolerance smaller)
 })  
+
+
+# to prevent further cost matrix desasters
+test_that("gen_cost -- gen_cost0 -- gen_cost0d, 2d", { 
+  set.seed(240509, kind="Mersenne-Twister", normal.kind = "Inversion")
+  xx <- matrix(runif(20), 10, 2) 
+  yy <- matrix(runif(18), 9, 2) 
+  c0 <- as.matrix(dist(rbind(xx,yy)))[1:10, 11:19]^2
+  dimnames(c0) <- NULL
+  c1 <- transport:::gen_cost(xx, yy, 1)
+  c2 <- transport:::gen_cost0(xx, yy)
+  c3 <- transport:::gen_cost0d(xx, yy)
+  expect_equal(c1, c0)
+  expect_equal(c2, c0)
+  expect_equal(c3, c0)
+})  
+
+
+test_that("gen_cost -- gen_cost0d, 5d", { 
+  set.seed(240510, kind="Mersenne-Twister", normal.kind = "Inversion")
+  xx <- matrix(runif(30), 6, 5) 
+  yy <- matrix(runif(40), 8, 5) 
+  c0 <- as.matrix(dist(rbind(xx,yy)))[1:6, 7:14]^2
+  dimnames(c0) <- NULL
+  c1 <- transport:::gen_cost(xx, yy, 1)
+  c2 <- transport:::gen_cost0d(xx, yy)
+  expect_equal(c1, c0)
+  expect_equal(c2, c0)
+})  
+

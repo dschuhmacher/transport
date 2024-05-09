@@ -32,7 +32,11 @@ unbalanced.wpp <- function(a, b, p = 1, C = NULL, method = c("networkflow", "rev
   if (n == 0) return(atotmass)  # btotmass = 0
     
   if (threads == 1) {
-    costm <- gen_cost0(a$coordinates, b$coordinates)^(p/2)
+    if (a$dimension == 2) {
+      costm <- gen_cost0(a$coordinates, b$coordinates)^(p/2)  # this saves about 25-40% compared to gen_cost0d
+    } else {
+      costm <- gen_cost0d(a$coordinates, b$coordinates)^(p/2)
+    }
   } else {
     costm <- gen_cost(a$coordinates, b$coordinates, threads=threads)^(p/2) 
   }

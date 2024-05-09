@@ -1,5 +1,16 @@
 ----------------------------------------------------------------
 
+	CHANGES IN transport VERSION 0.15-2  (2024-05-10)
+
+OVERVIEW
+
+    o  Bug fix. The function gen_cost0 introduced in the
+       previous version was only designed for 2d scenarios.
+       There is now another function gen_cost0d for the
+       "single thread, more than 2d" case.
+
+----------------------------------------------------------------
+
 	CHANGES IN transport VERSION 0.15-1  (2024-05-09)
 
 OVERVIEW

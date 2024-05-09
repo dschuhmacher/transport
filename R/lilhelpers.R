@@ -674,7 +674,7 @@ costsplitter <- function(allres) {
   bdisposal <- sum(allres$bextra) * C^p
   
   gg <- as.matrix(expand.grid(a$generator))
-  costm <- gen_cost0(gg, gg)^(p/2)
+  costm <- gen_cost0d(gg, gg)^(p/2)
   perunitcost <- costm[as.matrix(allres$plan[,1:2])]
   transport <- sum(perunitcost * allres$plan$mass)
   

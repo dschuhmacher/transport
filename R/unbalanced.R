@@ -171,7 +171,7 @@ unbalanced.pgrid <- function(a, b, p = 1, C = NULL, method = c("networkflow", "r
   
   if (p == 1) {
     if (threads == 1) {
-      costm <- gen_cost0(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(1/2)
+      costm <- gen_cost0d(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(1/2)
     } else {
       costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(1/2)
     }
@@ -199,7 +199,7 @@ unbalanced.pgrid <- function(a, b, p = 1, C = NULL, method = c("networkflow", "r
     }
   } else {
     if (threads == 1) {
-      costm <- gen_cost0(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(p/2)
+      costm <- gen_cost0d(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE])^(p/2)
     } else {
       costm <- gen_cost(gg[wha, , drop=FALSE], gg[whb, , drop=FALSE], threads=threads)^(p/2)
     }
