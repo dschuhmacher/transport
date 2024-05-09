@@ -1,5 +1,25 @@
 ----------------------------------------------------------------
 
+	CHANGES IN transport VERSION 0.15-1  (2024-05-09)
+
+OVERVIEW
+
+    o  Dependence on R version >= 4.1 is now in DESCRIPTION.
+       This R version was required before, but rather than
+       being stated explicitly, installation failed with an
+       obscure error. Reported by Chao Zhang [#1].
+
+    o  Bug fix in internal function gen_cost used to compute
+       distance matrices. For points at (almost) the same
+       position negative entries of squared cost matrices
+       were possible. Fixed.
+
+    o  The computation of distance matrices is almost twice
+       as fast now by use of a new internal function gen_cost0
+       when running functions in a single thread.
+
+----------------------------------------------------------------
+
 	CHANGES IN transport VERSION 0.15-0  (2024-03-26)
 
 OVERVIEW
