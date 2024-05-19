@@ -60,8 +60,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // networkflow
-List networkflow(NumericMatrix a, NumericMatrix b, NumericMatrix C, int threads);
-RcppExport SEXP _transport_networkflow(SEXP aSEXP, SEXP bSEXP, SEXP CSEXP, SEXP threadsSEXP) {
+List networkflow(NumericMatrix a, NumericMatrix b, NumericMatrix C, int threads, size_t maxiters);
+RcppExport SEXP _transport_networkflow(SEXP aSEXP, SEXP bSEXP, SEXP CSEXP, SEXP threadsSEXP, SEXP maxitersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -69,7 +69,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix >::type b(bSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type C(CSEXP);
     Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(networkflow(a, b, C, threads));
+    Rcpp::traits::input_parameter< size_t >::type maxiters(maxitersSEXP);
+    rcpp_result_gen = Rcpp::wrap(networkflow(a, b, C, threads, maxiters));
     return rcpp_result_gen;
 END_RCPP
 }

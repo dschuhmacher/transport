@@ -1,5 +1,16 @@
 ----------------------------------------------------------------
 
+	CHANGES IN transport VERSION 0.15-3  (2024-05-19)
+
+OVERVIEW
+
+    o  Works around a (very) rare infinite loop in the
+       networkflow algorithm that seems to have to do with
+       numerical precision by introducing a (generous) iteration
+       limit and making the loop interruptible by the user.
+
+----------------------------------------------------------------
+
 	CHANGES IN transport VERSION 0.15-2  (2024-05-10)
 
 OVERVIEW
@@ -35,15 +46,15 @@ OVERVIEW
 
 OVERVIEW
 
-    o  unbalanced is now a generic function with methods for 
+    o  unbalanced is now a generic function with methods for
        class pgrid (corresponding to the previous function
        unbalanced) and wpp (new functionality).
-       
+
     o  plot.ubtrans has been replaced by plot.ut_grid and there
        is a new method plot.ut_wpp, where ut_grid and ut_wpp
        are (now) the classes of the outputs of the two unbalanced
        methods when setting output="all".
- 
+
 ----------------------------------------------------------------
 
 	CHANGES IN transport VERSION 0.14-8  (2024-03-09)

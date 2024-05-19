@@ -48,7 +48,8 @@ unbalanced.wpp <- function(a, b, p = 1, C = NULL, method = c("networkflow", "rev
   bmassplus <- c(bmass, atotmass)
 
   if (method == "networkflow") {
-    rawres <- networkflow(matrix(amassplus), matrix(bmassplus), costm, threads=threads) # m x 1 and n x 1 matrices for the masses 
+    maxiters <- ifelse(max(m,n) <= 2000, 1e5, 1e7)   # these parameters, especially the second one might still be much too high
+    rawres <- networkflow(matrix(amassplus), matrix(bmassplus), costm, threads=threads, maxiters=maxiters) # m x 1 and n x 1 matrices for the masses 
     # sanity check (not sure if already performed inside networkflow):
     primalcost <- sum(costm * rawres$plan)   
     dualcost <- sum(rawres$potential * c(amassplus, bmassplus))

@@ -58,6 +58,7 @@
 # include <omp.h>
 #endif
 #include <cmath>
+#include <Rcpp.h>
 
 
 //#include "sparse_array_n.h"
@@ -1529,6 +1530,7 @@ namespace lemon {
 			size_t iter_number = 0;
 			// Execute the Network Simplex algorithm
 			while (pivot.findEnteringArc()) {
+			  Rcpp::checkUserInterrupt();
 				if ((iter_number <= max_iter&&max_iter > 0) || max_iter<=0) {
 					iter_number++;
 					findJoinNode();
@@ -1539,7 +1541,12 @@ namespace lemon {
 						updateTreeStructure();
 						updatePotential();
 					}
-				} else break;
+				} else {
+				  Rcpp::warning("Maximum number of iterations %i reached in networkflow algorithm. "
+                        "The resulting optimal cost/distance should still be quite precise "
+                        "if this number is very large.", max_iter);
+				  break;
+				}
 			}
 
 			// Check feasibility

@@ -9,11 +9,13 @@
 using namespace Rcpp;
 using namespace std;
 using namespace lemon;
+
+// size_t maxiters = 1e6;
+// apparently if size_t overflows it should be set to SIZE_MAX (can only be a problem on 32bit systems)
+
 //[[Rcpp::depends(RcppEigen)]]
 //[[Rcpp::export]]
-
-
-List networkflow(NumericMatrix a,NumericMatrix b,NumericMatrix C,int threads){
+List networkflow(NumericMatrix a, NumericMatrix b, NumericMatrix C, int threads, size_t maxiters=1e7){
 #ifdef _OPENMP
   omp_set_num_threads(threads); //check whether this still causes trouble for people without openmp
 #endif
@@ -30,8 +32,7 @@ List networkflow(NumericMatrix a,NumericMatrix b,NumericMatrix C,int threads){
   std::vector<double> weights1(n1), weights2(n2);
   
   Digraph di(n1, n2);
-  NetworkSimplexSimple<Digraph, double, double, long long> net(di, true, n1 + n2, n1*n2);
-  
+  NetworkSimplexSimple<Digraph, double, double, long long> net(di, true, n1 + n2, n1*n2, maxiters);
   int64_t idarc = 0;
   for (int i = 0; i < n1; i++) {
     for (int j = 0; j < n2; j++) {

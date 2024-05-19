@@ -1,6 +1,6 @@
 Package: transport
-Version: 0.15-2
-Date: 2024-05-10
+Version: 0.15-3
+Date: 2024-05-19
 Title: Computation of Optimal Transport Plans and Wasserstein Distances
 Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathematik.uni-goettingen.de", role = c("aut","cre")),
              person("Björn", "Bähre", role = "aut", comment = "aha and power diagrams"),
@@ -20,6 +20,7 @@ Description: Solve optimal transport problems. Compute Wasserstein distances (a.
 LazyData: yes
 Encoding: UTF-8
 License: GPL (>= 2)
+BugReports: https://github.com/dschuhmacher/transport/issues
 URL: https://dschuhm1.pages.gwdg.de/software
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3

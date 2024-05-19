@@ -17,8 +17,8 @@ gen_cost0d <- function(xx, yy) {
     .Call(`_transport_gen_cost0d`, xx, yy)
 }
 
-networkflow <- function(a, b, C, threads) {
-    .Call(`_transport_networkflow`, a, b, C, threads)
+networkflow <- function(a, b, C, threads, maxiters = 1e7L) {
+    .Call(`_transport_networkflow`, a, b, C, threads, maxiters)
 }
 
 openmp_present <- function() {

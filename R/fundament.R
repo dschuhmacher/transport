@@ -740,7 +740,8 @@ transport.pp <- function(a, b, p = 1, method = c("auction", "auctionbf", "networ
     # else{
     #   result<-networkflow(matrix(1,a$N,1),matrix(1,b$N,1),C,threads)
     # }
-    result<-networkflow(matrix(1,a$N,1),matrix(1,b$N,1),C,threads)
+    maxiters <- ifelse(N <= 2000, 1e5, 1e7)   # these parameters, especially the second one might still be much too high
+    result<-networkflow(matrix(1,a$N,1),matrix(1,b$N,1),C,threads, maxiters)
     result$frame<-result$frame[result$frame[,3]>0,,drop=FALSE]
     df<-data.frame(from=result$frame[,1],to=result$frame[,2],mass=result$frame[,3])
     if (fullreturn==TRUE){
@@ -919,7 +920,8 @@ transport.wpp <- function(a, b, p = 1, method = c("networkflow", "revsimplex", "
     # else{
     #   result<-networkflow(matrix(amass),matrix(bmass),C,threads)
     # }
-    result<-networkflow(matrix(amass),matrix(bmass),C,threads)
+    maxiters <- ifelse(max(m,n) <= 2000, 1e5, 1e7)   # these parameters, especially the second one might still be much too high
+    result<-networkflow(matrix(amass),matrix(bmass),C,threads, maxiters)
     result$frame<-result$frame[result$frame[,3]>0,,drop=FALSE]
     df<-data.frame(from=result$frame[,1],to=result$frame[,2],mass=result$frame[,3])
     if (fullreturn==TRUE){
@@ -1208,7 +1210,8 @@ transport.default <- function(a, b, costm, method=c("networkflow", "shortsimplex
     if (threads > 1 && !as.logical(openmp_present())) {
       warning("multithreading request ignored. Package was not installed with openMP support")
     }
-    result <- networkflow(matrix(apos),matrix(bpos),dd,threads)
+    maxiters <- ifelse(max(m,n) <= 2000, 1e5, 1e7)   # these parameters, especially the second one might still be much too high
+    result <- networkflow(matrix(apos),matrix(bpos),dd,threads, maxiters)
     result$frame <- result$frame[result$frame[,3]>0,,drop=FALSE]
     if ((length(a)>length(apos)) || (length(b)>length(bpos))){
       result<-zero_transform(result,wha,whb,a,b)
