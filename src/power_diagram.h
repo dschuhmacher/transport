@@ -23,9 +23,9 @@
 #include <R.h>
 #include <Rmath.h>
 
-#define MALLOC(size,t) Calloc(size * sizeof(t),t)
-#define REALLOC(p,size,t) Realloc(p, size * sizeof(t),t)
-#define FREE(p) Free(p)
+#define MALLOC(size,t) R_Calloc(size * sizeof(t),t)
+#define REALLOC(p,size,t) R_Realloc(p, size * sizeof(t),t)
+#define FREE(p) R_Free(p)
 
 #include <stdlib.h>
 #include <stdio.h>

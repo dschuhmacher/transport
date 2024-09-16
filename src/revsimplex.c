@@ -254,11 +254,11 @@ void init_solution(State *state)
   m = state->m;
   n = state->n;
 
-  aleft = (int *) Calloc((long) m, int);
-  bleft = (int *) Calloc((long) n, int);
-  aisleft = (int *) Calloc((long) m, int);
-  bisleft = (int *) Calloc((long) n, int);
-  degenisj = (int *) Calloc((long) n, int);
+  aleft = (int *) R_Calloc((long) m, int);
+  bleft = (int *) R_Calloc((long) n, int);
+  aisleft = (int *) R_Calloc((long) m, int);
+  bisleft = (int *) R_Calloc((long) n, int);
+  degenisj = (int *) R_Calloc((long) n, int);
 
   for (i = 0; i < m; i++) {
   for (j = 0; j < n; j++) {
@@ -329,11 +329,11 @@ void init_solution(State *state)
   /* if (degennum > 0) {
     warning("Starting solution is degenerate. Nothing to worry about!");
   } */
-  Free(aleft);
-  Free(bleft);
-  Free(aisleft);
-  Free(bisleft);
-  Free(degenisj);
+  R_Free(aleft);
+  R_Free(bleft);
+  R_Free(aisleft);
+  R_Free(bisleft);
+  R_Free(degenisj);
 }
 
 

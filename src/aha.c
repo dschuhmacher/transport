@@ -59,9 +59,9 @@ void decompose_c(int *n, double *x, double *y, double *m, int *n0, double *x0, d
                double *m0, int *p, double *eps)
 {
     int i,j;
-    double *cluster_x = Calloc(*n0*sizeof(double),double);
-    double *cluster_y = Calloc(*n0*sizeof(double),double);
-    double *cluster_m = Calloc(*n0*sizeof(double),double);
+    double *cluster_x = R_Calloc(*n0*sizeof(double),double);
+    double *cluster_y = R_Calloc(*n0*sizeof(double),double);
+    double *cluster_m = R_Calloc(*n0*sizeof(double),double);
     double a,min;
     int imin;
     double e;
@@ -111,9 +111,9 @@ void decompose_c(int *n, double *x, double *y, double *m, int *n0, double *x0, d
 
     } while(e>(*eps)*(*eps));
 
-    Free(cluster_x);
-    Free(cluster_y);
-    Free(cluster_m);
+    R_Free(cluster_x);
+    R_Free(cluster_y);
+    R_Free(cluster_m);
 }
 
 /* area of [0,1]x[0,1] intersected with halfspace to the left of (x1,y1)->(x2,y2),
@@ -431,9 +431,9 @@ void aha_compute_transport(int *n, double *x, double *y, double *w, double *sour
                     ++(*res);
                     if ((*res)>=memory*AHA_TRANSPORT_MEMORY) {
                         ++memory;
-                        aha_transport_from = Realloc(aha_transport_from, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
-                        aha_transport_to = Realloc(aha_transport_to, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
-                        aha_transport_mass = Realloc(aha_transport_mass, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
+                        aha_transport_from = R_Realloc(aha_transport_from, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
+                        aha_transport_to = R_Realloc(aha_transport_to, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
+                        aha_transport_mass = R_Realloc(aha_transport_mass, memory*AHA_TRANSPORT_MEMORY*sizeof(double),double);
                     }
                 }
             }
@@ -462,17 +462,17 @@ void aha_init(int *n, int *m, double *rect, int *npoints)
     aha_rect[1] = rect[1];
     aha_rect[2] = rect[2];
     aha_rect[3] = rect[3];
-    aha_x = Calloc(((aha_n+1)*(aha_m+1)+8)*sizeof(double),double);
-    aha_y = Calloc(((aha_n+1)*(aha_m+1)+8)*sizeof(double),double);
-    aha_ixmin = Calloc(aha_n*sizeof(int),int);
-    aha_ixmax = Calloc(aha_n*sizeof(int),int);
-    aha_edge_pixel = Calloc(aha_n*aha_m*sizeof(int),int);
-    aha_area = Calloc(aha_n*aha_m*sizeof(double),double);
-    // aha_dphi_val = Calloc(aha_n*aha_m*sizeof(double),double);  // sometimes not enough
-    aha_dphi_val = Calloc(aha_npoints*sizeof(double),double);
-    aha_transport_from = Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
-    aha_transport_to = Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
-    aha_transport_mass = Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
+    aha_x = R_Calloc(((aha_n+1)*(aha_m+1)+8)*sizeof(double),double);
+    aha_y = R_Calloc(((aha_n+1)*(aha_m+1)+8)*sizeof(double),double);
+    aha_ixmin = R_Calloc(aha_n*sizeof(int),int);
+    aha_ixmax = R_Calloc(aha_n*sizeof(int),int);
+    aha_edge_pixel = R_Calloc(aha_n*aha_m*sizeof(int),int);
+    aha_area = R_Calloc(aha_n*aha_m*sizeof(double),double);
+    // aha_dphi_val = R_Calloc(aha_n*aha_m*sizeof(double),double);  // sometimes not enough
+    aha_dphi_val = R_Calloc(aha_npoints*sizeof(double),double);
+    aha_transport_from = R_Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
+    aha_transport_to = R_Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
+    aha_transport_mass = R_Calloc(AHA_TRANSPORT_MEMORY*sizeof(double),double);
 
     aha_pert = 0;
 
@@ -485,16 +485,16 @@ void aha_init(int *n, int *m, double *rect, int *npoints)
 
 void aha_free(void)
 {
-    Free(aha_x);
-    Free(aha_y);
-    Free(aha_ixmin);
-    Free(aha_ixmax);
-    Free(aha_edge_pixel);
-    Free(aha_area);
-    Free(aha_dphi_val);
-    Free(aha_transport_from);
-    Free(aha_transport_to);
-    Free(aha_transport_mass);
+    R_Free(aha_x);
+    R_Free(aha_y);
+    R_Free(aha_ixmin);
+    R_Free(aha_ixmax);
+    R_Free(aha_edge_pixel);
+    R_Free(aha_area);
+    R_Free(aha_dphi_val);
+    R_Free(aha_transport_from);
+    R_Free(aha_transport_to);
+    R_Free(aha_transport_mass);
     free_triangulation(&aha_rt);
 }
 
@@ -513,11 +513,11 @@ void compute_power_diagram(int *cell_size, int *n, double *x, double *y, double 
     static int memory = 1;
     int i, j, k=0, total=0;
     double xmin, ymin, xmax, ymax, pert, xt, yt, a;
-    double *cx = Calloc((*n+4)*sizeof(double),double);
-    double *cy = Calloc((*n+4)*sizeof(double),double);
+    double *cx = R_Calloc((*n+4)*sizeof(double),double);
+    double *cy = R_Calloc((*n+4)*sizeof(double),double);
 
-    pd_x = Calloc(memory*PD_DEFAULT_MEMSIZE*sizeof(double),double);
-    pd_y = Calloc(memory*PD_DEFAULT_MEMSIZE*sizeof(double),double);
+    pd_x = R_Calloc(memory*PD_DEFAULT_MEMSIZE*sizeof(double),double);
+    pd_y = R_Calloc(memory*PD_DEFAULT_MEMSIZE*sizeof(double),double);
 
     xmin = x[0];
     xmax = x[0];
@@ -547,8 +547,8 @@ void compute_power_diagram(int *cell_size, int *n, double *x, double *y, double 
         power_cell(&cell_size[i],cx,cy,&rt,&rt.sites[i],rect[0],rect[1],rect[2],rect[3]);
         total += cell_size[i];
         if (total > memory*PD_DEFAULT_MEMSIZE) {
-            pd_x = Realloc(pd_x, (++memory)*PD_DEFAULT_MEMSIZE*sizeof(double),double);
-            pd_y = Realloc(pd_y, (++memory)*PD_DEFAULT_MEMSIZE*sizeof(double),double);
+            pd_x = R_Realloc(pd_x, (++memory)*PD_DEFAULT_MEMSIZE*sizeof(double),double);
+            pd_y = R_Realloc(pd_y, (++memory)*PD_DEFAULT_MEMSIZE*sizeof(double),double);
         }
         for(j=0;j<cell_size[i];j++) {
             pd_x[k] = cx[j];
@@ -557,8 +557,8 @@ void compute_power_diagram(int *cell_size, int *n, double *x, double *y, double 
     }
 
     free_triangulation(&rt);
-    Free(cx);
-    Free(cy);
+    R_Free(cx);
+    R_Free(cy);
 }
 
 void get_power_diagram(int *size, double *x, double *y)
@@ -568,6 +568,6 @@ void get_power_diagram(int *size, double *x, double *y)
         x[i] = pd_x[i];
         y[i] = pd_y[i];
     }
-    Free(pd_x);
-    Free(pd_y);
+    R_Free(pd_x);
+    R_Free(pd_y);
 }

@@ -39,8 +39,8 @@ void dedewithchannels(int m, int n, int no_of_ones, int *basis, int *channels_by
   int rowg, colg, newg;
  
 
-  rowblock = (int *) Calloc((long) m, int);
-  colblock = (int *) Calloc((long) n, int);
+  rowblock = (int *) R_Calloc((long) m, int);
+  colblock = (int *) R_Calloc((long) n, int);
   //  oldbasis = (int *) Calloc((long) (m * n), int);
   
   //  for (i = 0; i < m; i++) {    
@@ -102,10 +102,10 @@ void dedewithchannels(int m, int n, int no_of_ones, int *basis, int *channels_by
   }
 
   // abstracting from blocks to entries:
-  gchannels = (int *) Calloc(nbl * nbl, int);   // between which blocks is transport possible
-  gwhichrows = (int *) Calloc(nbl * nbl, int);  // if transport is possible between pair of blocks, from which source to which target
-  gwhichcols = (int *) Calloc(nbl * nbl, int);  // from which source (...rows) to which target (...cols)
-  chainlist = (int *) Calloc(nbl, int);         // in which order do we chain blocks to 0-block (first entry 0)
+  gchannels = (int *) R_Calloc(nbl * nbl, int);   // between which blocks is transport possible
+  gwhichrows = (int *) R_Calloc(nbl * nbl, int);  // if transport is possible between pair of blocks, from which source to which target
+  gwhichcols = (int *) R_Calloc(nbl * nbl, int);  // from which source (...rows) to which target (...cols)
+  chainlist = (int *) R_Calloc(nbl, int);         // in which order do we chain blocks to 0-block (first entry 0)
 
   for (g = 0; g < nbl; g++) {
     chainlist[g] = 0;
@@ -200,13 +200,13 @@ void dedewithchannels(int m, int n, int no_of_ones, int *basis, int *channels_by
     }    
   }
   
-  Free(gchannels);
-  Free(gwhichrows);
-  Free(gwhichcols);
-  Free(chainlist);
+  R_Free(gchannels);
+  R_Free(gwhichrows);
+  R_Free(gwhichcols);
+  R_Free(chainlist);
   
-  Free(rowblock);
-  Free(colblock);
+  R_Free(rowblock);
+  R_Free(colblock);
 }
 
 
@@ -226,10 +226,10 @@ void findblocks(int m, int n, int *basis, int *nblock, int *rowblock, int *colbl
   int *rows2go, *cols2go;
   int *rowlist, *collist;
   
-  rows2go = (int *) Calloc(m, int);
-  rowlist = (int *) Calloc(m, int);
-  cols2go = (int *) Calloc(n, int);
-  collist = (int *) Calloc(n, int);
+  rows2go = (int *) R_Calloc(m, int);
+  rowlist = (int *) R_Calloc(m, int);
+  cols2go = (int *) R_Calloc(n, int);
+  collist = (int *) R_Calloc(n, int);
   
   for (i = 0; i < m; i++) {
     rowblock[i] = -1;   // different from R: which block the i-th row is assigned to
@@ -315,10 +315,10 @@ void findblocks(int m, int n, int *basis, int *nblock, int *rowblock, int *colbl
   }     // end outer while
 
   (*nblock)++;  // nblock was pointing on the last block no written, so now +1 
-  Free(rows2go);
-  Free(rowlist);
-  Free(cols2go);
-  Free(collist);
+  R_Free(rows2go);
+  R_Free(rowlist);
+  R_Free(cols2go);
+  R_Free(collist);
   //  return 0;
 }
 

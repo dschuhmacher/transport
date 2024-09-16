@@ -55,7 +55,7 @@ On my system int is 32 bit (I guess on every system), long is 64 bit (and longlo
 /* seems a bit far from zero to me */
 
 /* Note: the State structure includes many "temporary variables", because I suspect
-   that the many calls to Calloc inside the loops would slow down the programm
+   that the many calls to R_Calloc inside the loops would slow down the programm
    AND above all because this simplifies debugging (just print state).
    On the other hand a more dynamic allocation of the byrow / bycol stuff
    could lead to a substantial reduction of memory requirements */
@@ -318,19 +318,19 @@ void spa_init_sparse_solution(State *state)
   // Freeing is not 100% fool proof: user interrupt (and error) does not Free the memory
   m2 = state->m + 1;
   n2 = state->n + 1;
-  a2 = (int *) Calloc((long) m2, int);
-  b2 = (int *) Calloc((long) n2, int);
-  costm2 = (double *) Calloc((long) (m2 * n2), double);
-  channels_byrow_over2 = (int *) Calloc((long) m2, int);
-  channels_byrow2 = (int **) Calloc((long) m2, int *);
-  assignment2 = (int *) Calloc((long) (m2 * n2), int);
-  basis2 = (int *) Calloc((long) (m2 * n2), int);
-  u2 = (double *) Calloc((long) m2, double);
-  v2 = (double *) Calloc((long) n2, double);
+  a2 = (int *) R_Calloc((long) m2, int);
+  b2 = (int *) R_Calloc((long) n2, int);
+  costm2 = (double *) R_Calloc((long) (m2 * n2), double);
+  channels_byrow_over2 = (int *) R_Calloc((long) m2, int);
+  channels_byrow2 = (int **) R_Calloc((long) m2, int *);
+  assignment2 = (int *) R_Calloc((long) (m2 * n2), int);
+  basis2 = (int *) R_Calloc((long) (m2 * n2), int);
+  u2 = (double *) R_Calloc((long) m2, double);
+  v2 = (double *) R_Calloc((long) n2, double);
   for (i = 0; i < state->m; i++) {
-    channels_byrow2[i] = (int *) Calloc(state->channels_byrow_over[i]+1, int);      
+    channels_byrow2[i] = (int *) R_Calloc(state->channels_byrow_over[i]+1, int);      
   }
-  channels_byrow2[state->m] = (int *) Calloc(n2, int);
+  channels_byrow2[state->m] = (int *) R_Calloc(n2, int);
   
   // Rprintf("After memory allocation in init_sparse_solution \n");
   // copy what we can from actual problem
@@ -474,18 +474,18 @@ void spa_init_sparse_solution(State *state)
     Rprintf("Success! \n");
   }
   
-  Free(a2);
-  Free(b2);
-  Free(costm2);
-  Free(channels_byrow_over2);
+  R_Free(a2);
+  R_Free(b2);
+  R_Free(costm2);
+  R_Free(channels_byrow_over2);
   for (i = 0; i < m2; i++) {
-    Free(channels_byrow2[i]);
+    R_Free(channels_byrow2[i]);
   }
-  Free(channels_byrow2);
-  Free(assignment2);
-  Free(basis2);
-  Free(u2);
-  Free(v2); 
+  R_Free(channels_byrow2);
+  R_Free(assignment2);
+  R_Free(basis2);
+  R_Free(u2);
+  R_Free(v2); 
 }
 
 
@@ -508,11 +508,11 @@ void spa_init_solution(State *state)
   m = state->m;
   n = state->n;
 
-  aleft = (int *) Calloc((long) m, int);
-  bleft = (int *) Calloc((long) n, int);
-  aisleft = (int *) Calloc((long) m, int);
-  bisleft = (int *) Calloc((long) n, int);
-  degenisj = (int *) Calloc((long) n, int);
+  aleft = (int *) R_Calloc((long) m, int);
+  bleft = (int *) R_Calloc((long) n, int);
+  aisleft = (int *) R_Calloc((long) m, int);
+  bisleft = (int *) R_Calloc((long) n, int);
+  degenisj = (int *) R_Calloc((long) n, int);
 
   for (i = 0; i < m; i++) {
   for (j = 0; j < n; j++) {
@@ -583,11 +583,11 @@ void spa_init_solution(State *state)
   /* if (degennum > 0) {
     warning("Starting solution is degenerate. Nothing to worry about!");
   } */
-  Free(aleft);
-  Free(bleft);
-  Free(aisleft);
-  Free(bisleft);
-  Free(degenisj);
+  R_Free(aleft);
+  R_Free(bleft);
+  R_Free(aisleft);
+  R_Free(bisleft);
+  R_Free(degenisj);
 }
 
 

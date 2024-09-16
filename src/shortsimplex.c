@@ -316,8 +316,8 @@ void init_shortlist(State *state)
   m = state->m;
   n = state->n;
 
-  costfromrow = (double *) Calloc((long) n, double);
-  indfromrow = (int *) Calloc((long) n, int);
+  costfromrow = (double *) R_Calloc((long) n, double);
+  indfromrow = (int *) R_Calloc((long) n, int);
   
   for (i = 0; i < m; i++) {
 
@@ -336,8 +336,8 @@ void init_shortlist(State *state)
 
   }
 
-  Free(costfromrow);
-  Free(indfromrow);
+  R_Free(costfromrow);
+  R_Free(indfromrow);
 }
 
 
@@ -438,10 +438,10 @@ void init_assignment(State *state)
   m = state->m;
   n = state->n;
 
-  aleft = (int *) Calloc((long) m, int);
-  bleft = (int *) Calloc((long) n, int);
-  adone = (int *) Calloc((long) m, int);
-  bdone = (int *) Calloc((long) n, int);
+  aleft = (int *) R_Calloc((long) m, int);
+  bleft = (int *) R_Calloc((long) n, int);
+  adone = (int *) R_Calloc((long) m, int);
+  bdone = (int *) R_Calloc((long) n, int);
 
   for (i = 0; i < m; i++) {
   for (j = 0; j < n; j++) {
@@ -507,10 +507,10 @@ void init_assignment(State *state)
 
   }
   
-  Free(aleft);
-  Free(bleft);
-  Free(adone);
-  Free(bdone);
+  R_Free(aleft);
+  R_Free(bleft);
+  R_Free(adone);
+  R_Free(bdone);
   /*  MAT(basis,i,j) = */
   /* FIXBASIS (DE-DEGENERATE) */
 }

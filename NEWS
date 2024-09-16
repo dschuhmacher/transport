@@ -1,5 +1,15 @@
 ----------------------------------------------------------------
 
+	CHANGES IN transport VERSION 0.15-4  (2024-09-15)
+
+OVERVIEW
+
+    o  CRAN maintenance update. Replace ancient "Calloc"s by 
+       "R_Calloc"s (and so on). Remove WSGeometry from suggested
+       packages as it is no longer on CRAN.
+
+----------------------------------------------------------------
+
 	CHANGES IN transport VERSION 0.15-3  (2024-05-19)
 
 OVERVIEW

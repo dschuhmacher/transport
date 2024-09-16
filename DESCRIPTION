@@ -1,6 +1,6 @@
 Package: transport
-Version: 0.15-3
-Date: 2024-05-19
+Version: 0.15-4
+Date: 2024-09-15
 Title: Computation of Optimal Transport Plans and Wasserstein Distances
 Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathematik.uni-goettingen.de", role = c("aut","cre")),
              person("Björn", "Bähre", role = "aut", comment = "aha and power diagrams"),
@@ -14,7 +14,7 @@ Authors@R: c(person("Dominic", "Schuhmacher", email = "dominic.schuhmacher@mathe
 Maintainer: Dominic Schuhmacher <dominic.schuhmacher@mathematik.uni-goettingen.de>
 Depends: R (>= 4.1)
 Imports: grDevices, graphics, methods, stats, Rcpp (>= 0.12.10), data.table
-Suggests: animation, ks, testthat, WSGeometry
+Suggests: animation, ks, testthat
 LinkingTo: RcppEigen, Rcpp
 Description: Solve optimal transport problems. Compute Wasserstein distances (a.k.a. Kantorovitch, Fortet--Mourier, Mallows, Earth Mover's, or minimal L_p distances), return the corresponding transference plans, and display them graphically. Objects that can be compared include grey-scale images, (weighted) point patterns, and mass vectors.
 LazyData: yes

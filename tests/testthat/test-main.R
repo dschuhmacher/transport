@@ -241,7 +241,7 @@ test_that("semidiscrete, p=2", {
 })  
 
 
-# to prevent further cost matrix desasters
+# to prevent further cost matrix disasters
 test_that("gen_cost -- gen_cost0 -- gen_cost0d, 2d", { 
   set.seed(240509, kind="Mersenne-Twister", normal.kind = "Inversion")
   xx <- matrix(runif(20), 10, 2) 
